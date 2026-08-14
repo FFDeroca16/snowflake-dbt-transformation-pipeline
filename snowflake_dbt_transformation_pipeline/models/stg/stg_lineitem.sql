@@ -14,7 +14,7 @@ WITH lineitem AS (
         l_commitdate AS commit_date,
         l_receiptdate AS receipt_date,
         l_shipinstruct AS ship_instruct,
-        l_shipmode AS shop_mode,
+        l_shipmode AS ship_mode,
         l_comment AS comment
     FROM 
         {{ source('tpch', 'lineitem') }}
