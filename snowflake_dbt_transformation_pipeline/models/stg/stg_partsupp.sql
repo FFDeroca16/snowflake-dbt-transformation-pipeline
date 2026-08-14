@@ -1,5 +1,8 @@
 WITH partsupp AS (
     SELECT 
+        {{
+            dbt_utils.generate_surrogate_key(['ps_partkey', 'ps_suppkey'])
+        }} AS part_supplier_key,
         ps_partkey AS part_key,
         ps_suppkey AS supplier_key,
         ps_availqty AS available_quantity,
