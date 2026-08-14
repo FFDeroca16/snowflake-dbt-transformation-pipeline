@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: tpch
+    database: snowflake_sample_data
+    schema: tpch_sf1
+    tables:
+      - name: lineitem
+      - name: nation
+      - name: part
+      - name: partsupp
+      - name: region
+      - name: supplier
+  - name: raw
+    database: dbt_transformation_db
+    schema: raw
+    tables:
+      - name: customer
+      - name: orders
