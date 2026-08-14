@@ -2,7 +2,7 @@ WITH lineitem AS (
     SELECT 
         l_orderkey AS order_key,
         l_partkey AS part_key,
-        l_suppkey AS supp_key,
+        l_suppkey AS supplier_key,
         l_linenumber AS line_number,
         l_quantity AS quantity,
         l_extendedprice AS extended_price,
