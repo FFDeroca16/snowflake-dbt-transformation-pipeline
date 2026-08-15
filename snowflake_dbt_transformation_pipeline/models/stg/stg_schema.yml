@@ -2,27 +2,32 @@ version: 2
 
 models:
   - name: stg_customer
+    description: Staging table of customers, which was cloned by using CTAS from TPCH_SF1.CUSTOMERS
     columns:
       - name: customer_key
+        description: Primary Key
         data_tests:
           - unique
           - not_null
       - name: nation_key
         data_tests:
+          - not_null
           - relationships:
-              to: ref('stg_nation')
-              field: nation_key
+              arguments:
+                to: ref('stg_nation')
+                field: nation_key
       - name: market_segment
         data_tests:
           - accepted_values:
-              values:
-                [
-                  'AUTOMOBILE',
-                  'BUILDING',
-                  'FURNITURE',
-                  'HOUSEHOLD',
-                  'MACHINERY',
-                ]
+              arguments:
+                values:
+                  [
+                    'AUTOMOBILE',
+                    'BUILDING',
+                    'FURNITURE',
+                    'HOUSEHOLD',
+                    'MACHINERY',
+                  ]
 
   - name: stg_orders
     columns:
@@ -32,18 +37,22 @@ models:
           - not_null
       - name: customer_key
         data_tests:
+          - not_null
           - relationships:
-              to: ref('stg_customer')
-              field: customer_key
+              arguments:
+                to: ref('stg_customer')
+                field: customer_key
       - name: order_status
         data_tests:
           - accepted_values:
-              values: ['P', 'O', 'F']
+              arguments:
+                values: ['P', 'O', 'F']
       - name: order_priority
         data_tests:
           - accepted_values:
-              values:
-                ['1-URGENT', '2-HIGH', '3-MEDIUM', '4-NOT SPECIFIED', '5-LOW']
+              arguments:
+                values:
+                  ['1-URGENT', '2-HIGH', '3-MEDIUM', '4-NOT SPECIFIED', '5-LOW']
 
   - name: stg_lineitem
     columns:
@@ -53,31 +62,41 @@ models:
           - not_null
       - name: order_key
         data_tests:
+          - not_null
           - relationships:
-              to: ref('stg_orders')
-              field: order_key
+              arguments:
+                to: ref('stg_orders')
+                field: order_key
       - name: part_key
         data_tests:
+          - not_null
           - relationships:
-              to: ref('stg_part')
-              field: part_key
+              arguments:
+                to: ref('stg_part')
+                field: part_key
       - name: supplier_key
         data_tests:
+          - not_null
           - relationships:
-              to: ref('stg_supplier')
-              field: supplier_key
+              arguments:
+                to: ref('stg_supplier')
+                field: supplier_key
       - name: return_flag
         data_tests:
           - accepted_values:
-              values: ['A', 'N', 'R']
+              arguments:
+                values: ['A', 'N', 'R']
       - name: line_status
         data_tests:
           - accepted_values:
-              values: ['F', 'O']
+              arguments:
+                values: ['F', 'O']
       - name: ship_mode
         data_tests:
           - accepted_values:
-              values: ['AIR', 'FOB', 'MAIL', 'RAIL', 'REG AIR', 'SHIP', 'TRUCK']
+              arguments:
+                values:
+                  ['AIR', 'FOB', 'MAIL', 'RAIL', 'REG AIR', 'SHIP', 'TRUCK']
 
   - name: stg_part
     columns:
@@ -85,3 +104,73 @@ models:
         data_tests:
           - unique
           - not_null
+
+  - name: stg_partsupp
+    columns:
+      - name: part_supplier_key
+        data_tests:
+          - unique
+          - not_null
+      - name: part_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_part')
+                field: part_key
+      - name: supplier_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_supplier')
+                field: supplier_key
+
+  - name: stg_supplier
+    columns:
+      - name: supplier_key
+        data_tests:
+          - unique
+          - not_null
+      - name: nation_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_nation')
+                field: nation_key
+      - name: supplier_name
+        data_tests:
+          - not_null
+
+  - name: stg_nation
+    columns:
+      - name: nation_key
+        data_tests:
+          - unique
+          - not_null
+      - name: nation_name
+        data_tests:
+          - unique
+          - not_null
+      - name: region_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_region')
+                field: region_key
+
+  - name: stg_region
+    columns:
+      - name: region_key
+        data_tests:
+          - unique
+          - not_null
+      - name: region_name
+        data_tests:
+          - unique
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['AMERICA', 'ASIA', 'AFRICA', 'MIDDLE EAST', 'EUROPE']
