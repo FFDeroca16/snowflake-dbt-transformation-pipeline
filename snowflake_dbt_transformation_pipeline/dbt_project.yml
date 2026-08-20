@@ -33,3 +33,6 @@ models:
     stg:
       +materialized: view
       +snowflake_warehouse: ae_wh
+    int:
+      +materialized: view
+      +snowflake_warehouse: ae_wh
