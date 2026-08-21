@@ -16,3 +16,21 @@ models:
       - name: tax_amount
         data_tests:
           - not_null
+  - name: int_orders_agg_from_lineitem
+    columns:
+      - name: order_key
+        data_tests:
+          - unique
+          - not_null
+      - name: total_quantity
+        data_tests:
+          - not_null
+      - name: total_net_amount
+        data_tests:
+          - not_null
+      - name: total_gross_revenue
+        data_tests:
+          - not_null
+      - name: total_tax_amount
+        data_tests:
+          - not_null
