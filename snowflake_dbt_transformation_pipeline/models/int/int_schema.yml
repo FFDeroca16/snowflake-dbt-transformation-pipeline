@@ -1,4 +1,18 @@
 version: 2
 
 models:
-  - name: int_lineitems_calc
+  - name: int_lineitem_calcs
+    columns:
+      - name: line_item_key
+        data_tests:
+          - unique
+          - not_null
+      - name: net_amount
+        data_tests:
+          - not_null
+      - name: gross_revenue
+        data_tests:
+          - not_null
+      - name: tax_amount
+        data_tests:
+          - not_null
