@@ -1,3 +1,8 @@
+/*
+    Last edit: Franz 2026-08-21
+    - Added loaded_at column for deduplication scenarios
+*/
+
 WITH orders AS (
     SELECT 
         o_orderkey AS order_key,
@@ -8,7 +13,8 @@ WITH orders AS (
         o_orderpriority AS order_priority,
         o_clerk AS order_clerk,
         o_shippriority AS ship_priority,
-        o_comment AS comment
+        o_comment AS comment,
+        loaded_at -- Added: Franz 2026-08-21
     FROM 
         {{ source('raw', 'orders') }}
 )
