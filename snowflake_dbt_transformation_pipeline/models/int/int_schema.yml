@@ -16,6 +16,7 @@ models:
       - name: tax_amount
         data_tests:
           - not_null
+
   - name: int_orders_agg_from_lineitem
     columns:
       - name: order_key
@@ -32,5 +33,33 @@ models:
         data_tests:
           - not_null
       - name: total_tax_amount
+        data_tests:
+          - not_null
+
+  - name: int_orders_deduped
+    columns:
+      - name: order_key
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_customer')
+                field: customer_key
+      - name: order_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['P', 'O', 'F']
+      - name: order_priority
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  ['1-URGENT', '2-HIGH', '3-MEDIUM', '4-NOT SPECIFIED', '5-LOW']
+      - name: loaded_at
         data_tests:
           - not_null
