@@ -1,0 +1,8 @@
+snapshots:
+  - name: int_customer_scd
+    relation: source('raw', 'customer')
+    config:
+      unique_key: c_custkey
+      updated_at: updated_at
+      strategy: timestamp
+      hard_deletes: invalidate
