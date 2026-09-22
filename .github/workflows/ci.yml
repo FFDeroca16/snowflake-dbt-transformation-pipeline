@@ -25,16 +25,16 @@ jobs:
         run: |
           pip install dbt-snowflake
 
-      - name: Write private key to file
+            - name: Write private key to file
         run: |
-          mkdir -p ~/.dbt
-          cat <<EOF > ~/.dbt/rsa_key.p8
+          mkdir -p /home/runner/.dbt
+          cat <<EOF > /home/runner/.dbt/rsa_key.p8
           ${{ secrets.SNOWFLAKE_PRIVATE_KEY }}
           EOF
 
       - name: Create profiles.yml
         run: |
-          cat <<EOF > ~/.dbt/profiles.yml
+          cat <<EOF > /home/runner/.dbt/profiles.yml
           snowflake_dbt_transformation_pipeline:
             target: ci
             outputs:
@@ -43,13 +43,13 @@ jobs:
                 account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
                 user: ${{ secrets.SNOWFLAKE_USER }}
                 role: ${{ secrets.SNOWFLAKE_ROLE }}
-                private_key_path: ~/.dbt/rsa_key.p8
+                private_key_path: /home/runner/.dbt/rsa_key.p8
                 database: ${{ secrets.SNOWFLAKE_DATABASE }}
                 warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
                 schema: ${{ secrets.SNOWFLAKE_SCHEMA }}
                 threads: 4
           EOF
-
+     
       - name: Install dbt packages
         working-directory: ./snowflake_dbt_transformation_pipeline
         run: dbt deps
