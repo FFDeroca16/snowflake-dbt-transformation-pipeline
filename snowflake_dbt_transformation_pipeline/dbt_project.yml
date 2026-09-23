@@ -36,3 +36,6 @@ models:
     int:
       +materialized: view
       +snowflake_warehouse: ae_wh
+    marts:
+      +materialized: table
+      +snowflake_warehouse: ae_wh
