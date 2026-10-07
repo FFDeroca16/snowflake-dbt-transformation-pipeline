@@ -31,3 +31,38 @@ models:
         data_tests:
           - unique
           - not_null
+
+  - name: dim_customer
+    columns:
+      - name: customer_key
+        data_tests:
+          - not_null
+      - name: nation_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_nation')
+                field: nation_key
+
+      - name: market_segment
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  [
+                    'AUTOMOBILE',
+                    'BUILDING',
+                    'MACHINERY',
+                    'HOUSEHOLD',
+                    'FURNITURE',
+                  ]
+
+      - name: dbt_scd_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: valid_from
+        data_tests:
+          - not_null
