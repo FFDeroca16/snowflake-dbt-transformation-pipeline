@@ -10,7 +10,7 @@ WITH customer_cte AS (
         c_comment AS comment,
         dbt_scd_id,
         dbt_updated_at,
-        dbt_valid_from AS valid_from,
+        {{ backdate_first_version('dbt_valid_from', 'c_custkey', '1900-01-01') }} AS valid_from,
         dbt_valid_to AS valid_to,
         {{ is_current('dbt_valid_to') }} AS is_current
     FROM 
