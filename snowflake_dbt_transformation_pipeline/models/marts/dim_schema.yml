@@ -44,7 +44,6 @@ models:
               arguments:
                 to: ref('stg_nation')
                 field: nation_key
-
       - name: market_segment
         data_tests:
           - accepted_values:
@@ -57,12 +56,53 @@ models:
                     'HOUSEHOLD',
                     'FURNITURE',
                   ]
-
       - name: dbt_scd_id
         data_tests:
           - unique
           - not_null
-
       - name: valid_from
+        data_tests:
+          - not_null
+
+  - name: fct_orders
+    columns:
+      - name: order_key
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+      - name: customer_version_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: dbt_scd_id
+      - name: order_date
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: total_quantity
+        data_tests:
+          - not_null
+      - name: total_net_amount
+        data_tests:
+          - not_null
+      - name: total_gross_revenue
+        data_tests:
+          - not_null
+      - name: total_tax_amount
+        data_tests:
+          - not_null
+      - name: line_item_count
         data_tests:
           - not_null
