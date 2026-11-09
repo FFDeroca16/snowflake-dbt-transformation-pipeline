@@ -106,3 +106,58 @@ models:
       - name: line_item_count
         data_tests:
           - not_null
+
+  - name: fct_lineitem
+    columns:
+      - name: line_item_key
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_version_key
+        data_tests:
+          - not_null
+      - name: order_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_orders')
+                field: order_key
+      - name: part_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_part')
+                field: part_key
+      - name: supplier_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_supplier')
+                field: supplier_key
+      - name: ship_date
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: commit_date
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: receipt_date
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: loaded_at
+        data_tests:
+          - not_null

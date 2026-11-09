@@ -7,7 +7,7 @@ WITH customer_cte AS (
         c_phone AS customer_phone,
         c_acctbal AS account_balance,
         c_mktsegment AS market_segment,
-        c_comment AS comment,
+        c_comment AS customer_comment,
         dbt_scd_id,
         dbt_updated_at,
         {{ backdate_first_version('dbt_valid_from', 'c_custkey', '1900-01-01') }} AS valid_from,

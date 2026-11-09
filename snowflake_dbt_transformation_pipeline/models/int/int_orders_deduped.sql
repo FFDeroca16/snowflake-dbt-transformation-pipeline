@@ -15,7 +15,7 @@ SELECT
     order_priority,
     order_clerk,
     ship_priority,
-    comment,
+    order_comment,
     loaded_at 
 FROM 
     int_orders_deduped

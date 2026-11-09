@@ -8,7 +8,7 @@ WITH part AS (
         p_size  AS part_size,
         p_container AS container,
         p_retailprice AS retail_price,
-        p_comment AS comment
+        p_comment AS part_comment
     FROM
         {{ source('tpch', 'part') }}
 )

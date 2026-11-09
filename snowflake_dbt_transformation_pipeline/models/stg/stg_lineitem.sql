@@ -18,9 +18,10 @@ WITH lineitem AS (
         l_receiptdate AS receipt_date,
         l_shipinstruct AS ship_instruct,
         l_shipmode AS ship_mode,
-        l_comment AS comment
+        l_comment AS line_comment,
+        loaded_at -- Added: Franz 2026-11-04
     FROM 
-        {{ source('tpch', 'lineitem') }}
+        {{ source('raw', 'lineitem') }}
 )
 
 SELECT

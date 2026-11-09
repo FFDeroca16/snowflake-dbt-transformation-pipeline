@@ -13,7 +13,7 @@ WITH orders AS (
         o_orderpriority AS order_priority,
         o_clerk AS order_clerk,
         o_shippriority AS ship_priority,
-        o_comment AS comment,
+        o_comment AS order_comment,
         loaded_at -- Added: Franz 2026-08-21
     FROM 
         {{ source('raw', 'orders') }}
