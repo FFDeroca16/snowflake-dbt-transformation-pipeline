@@ -7,7 +7,7 @@ WITH partsupp AS (
         ps_suppkey AS supplier_key,
         ps_availqty AS available_quantity,
         ps_supplycost AS supply_cost, 
-        ps_comment AS comment
+        ps_comment AS partsupp_comment
     FROM 
         {{ source('tpch', 'partsupp') }}
 )

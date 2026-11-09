@@ -16,7 +16,8 @@ WITH line_item_calcs AS (
         receipt_date,
         ship_instruct,
         ship_mode,
-        comment,
+        line_comment,
+        loaded_at,
         {{ calculate_net_amount('extended_price', 'discount') }} AS net_amount,
         {{ calculate_gross_revenue('extended_price', 'discount', 'tax') }} AS gross_revenue,
         {{ calculate_tax_amount('extended_price', 'discount', 'tax') }} AS tax_amount

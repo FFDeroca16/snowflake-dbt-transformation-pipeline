@@ -6,7 +6,7 @@ WITH supplier AS (
         s_nationkey AS nation_key,
         s_phone AS phone, 
         s_acctbal AS supplier_account_balance,
-        s_comment AS comment
+        s_comment AS supplier_comment
     FROM 
         {{ source('tpch', 'supplier') }}
 )

@@ -8,7 +8,7 @@ WITH stg_part AS (
         part_size,
         container,
         retail_price,
-        comment
+        part_comment
     FROM 
         {{ ref('stg_part') }}
 )

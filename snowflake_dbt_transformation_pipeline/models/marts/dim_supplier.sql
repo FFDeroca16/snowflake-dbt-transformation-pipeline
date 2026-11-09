@@ -19,7 +19,7 @@ SELECT
     ss.supplier_address,
     ss.phone,
     ss.supplier_account_balance,
-    ss.comment,
+    ss.supplier_comment,
     sn.nation_name
 FROM 
     stg_supplier ss 
