@@ -37,6 +37,7 @@ models:
           - not_null
 
   - name: int_orders_deduped
+    description: One row per order. If an order is re-sent, the version with the newest loaded_at is kept. If two versions share the same loaded_at, which one is kept is arbitrary.
     columns:
       - name: order_key
         data_tests:
@@ -63,3 +64,52 @@ models:
       - name: loaded_at
         data_tests:
           - not_null
+
+  - name: int_lineitem_deduped
+    description: One row per line item. If a line is re-sent, the version with the newest loaded_at is kept. If two versions share the same loaded_at, which one is kept is arbitrary.
+    columns:
+      - name: line_item_key
+        data_tests:
+          - unique
+          - not_null
+      - name: order_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_key
+      - name: part_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_part')
+                field: part_key
+      - name: supplier_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_supplier')
+                field: supplier_key
+      - name: return_flag
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['A', 'N', 'R']
+      - name: line_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['F', 'O']
+      - name: ship_mode
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  ['AIR', 'FOB', 'MAIL', 'RAIL', 'REG AIR', 'SHIP', 'TRUCK']
+      - name: loaded_at
+        data_tests:
+          - not_null
+
