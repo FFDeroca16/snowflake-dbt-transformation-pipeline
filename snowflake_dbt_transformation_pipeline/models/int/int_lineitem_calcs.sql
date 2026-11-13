@@ -21,7 +21,7 @@ WITH line_item_calcs AS (
         {{ calculate_net_amount('extended_price', 'discount') }} AS net_amount,
         {{ calculate_gross_revenue('extended_price', 'discount', 'tax') }} AS gross_revenue,
         {{ calculate_tax_amount('extended_price', 'discount', 'tax') }} AS tax_amount
-    FROM {{ ref('stg_lineitem') }}
+    FROM {{ ref('int_lineitem_deduped') }}
 )
 
 SELECT 
