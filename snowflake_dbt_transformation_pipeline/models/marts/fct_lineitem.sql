@@ -33,9 +33,11 @@ WITH lineitem AS (
     FROM
         {{ ref('int_lineitem_calcs') }}
     {% if is_incremental() %}
-        WHERE loaded_at > (SELECT MAX(loaded_at) FROM {{ this }}) 
+        {# 1. New lines: loaded after the latest loaded_at already in this table #}
+        WHERE loaded_at > (SELECT MAX(loaded_at) FROM {{ this }})
+        {# 2.  line item still waiting for their order (null key), rechecked each run #}
+        OR order_key IN (SELECT order_key FROM {{ this }} WHERE customer_version_key IS NULL)
     {% endif %}
-
 ),
 
 orders AS (
