@@ -1,2 +1,6 @@
 logs/
 Snowflake-Query/
+.env
+__pycache__/
+.user.yml
+snowflake-dbt-airflow/config/airflow.cfg
